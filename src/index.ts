@@ -1,7 +1,12 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
+import cors from 'cors';
+import helmet from 'helmet';
+import hpp from 'hpp';
+
 dotenv.config();
+
 import { AppDataSource } from './config/data-source';
 import { authRoutes, userRoutes } from './routes';
 import { errorHandler } from './utils/middlewares/error';
@@ -10,6 +15,9 @@ import { HttpException } from './utils';
 const app = express();
 
 app.use(express.json());
+app.use(cors());
+app.use(helmet());
+app.use(hpp());
 app.use(morgan('dev'));
 
 AppDataSource.initialize()
